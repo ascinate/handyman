@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="marhansolutions.com" />
+    <title>MVP Online Property Management - Dashboard</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Odia:wght@100..800&family=Boogaloo&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link href="css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/owl.theme.default.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.css"/>
+
+
+  </head>
+<body>
+
+  <header class="float-start w-100">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img alt="logo" loading="lazy" src="images/logo.png"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobile-menu">
+          <i class="ri-bar-chart-horizontal-line"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+           
+        
+            <li class="nav-item">
+              <a class="nav-link" href="#"> <i class="ri-phone-fill"></i> Support</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link user-uiy d-flex align-items-center dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="usert d-inline-block">
+                    <img alt="sr" loading="lazy" src="images/manages-st4.jpg"/>
+                  </div>
+                  <span class="ms-2"> James </span>
+                </a>
+                <ul class="dropdown-menu menus-drps" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="index.html">Home</a></li>
+                  <li><a class="dropdown-item" href="#">My Account</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link bar-btn" data-bs-toggle="offcanvas" data-bs-target="#mobile-menu">
+                <i class="ri-bar-chart-horizontal-line"></i>
+              </a>
+            </li>
+           
+          
+          </ul>
+
+          
+         
+        </div>
+      </div>
+    </nav>
+  </header>
+
+<section class="float-start w-100 dashboard">
+    <div class="container">
+        <div class="inside-tops d-inline-block w-100">
+           <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
+                <figure class="m-0 sert-div01">
+                    <img alt="al" loading="lazy" src="images/left-round.png">
+                </figure>
+               <h2 class="page-heading mt-4 mx-4"> Dashboard Overview </h2>
+               <figure class="m-0 sert-div01">
+                <img alt="al" loading="lazy" src="images/left-round2.png">
+               </figure>
+           </div>
+           <p class="col-lg-10 text-center mx-auto mt-4"> "Your all-in-one home management hub. From here, you can view upcoming
+             appointments, track ongoing services, check your billing history, and more." </p>
+        </div>
+    </div>
+</section>
+
+<section class="others-filed float-start w-100 mt-4">
+    <div class="container">
+        <div class="row gy-4 g-lg-4">
+           <div class="col-lg-8">
+                <div class="inside-tops-others d-inline-block w-100">
+                    <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
+                        <figure class="m-0 sert-div01">
+                            <img alt="al" loading="lazy" src="images/left-round.png">
+                        </figure>
+                       <h2 class="page-heading mt-4 mx-4"> My Booking </h2>
+                       <figure class="m-0 sert-div01">
+                        <img alt="al" loading="lazy" src="images/left-round2.png">
+                       </figure>
+                   </div>
+
+                   <div class="cols-table p-4 d-inline-block w-100">
+                        <table id="example-datea" class="table table-striped nowrap" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Service</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>#184510185</td>
+                                <td>System Architect</td>
+                                <td>Ingerthorpe, EH32 0RG</td>
+                                <td>Pending</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#104510185</td>
+                                <td>System Architect</td>
+                                <td>Ingerthorpe, EH32 0RG</td>
+                                <td>Pending</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#124510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#454510185</td>
+                                <td>System Architect</td>
+                                <td>Gorslas, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#324510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#124510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>#454510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#424510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#224510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#424510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#224510185</td>
+                                <td>System Architect</td>
+                                <td>Luffness, EH32 0RG</td>
+                                <td>successfully</td>
+                                <td>
+                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                   </div>
+                </div>
+           </div>
+
+           <div class="col-lg-4">
+            <div class="inside-tops-others d-inline-block w-100">
+                <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
+                    <figure class="m-0 sert-div01">
+                        <img alt="al" loading="lazy" src="images/left-round.png">
+                    </figure>
+                   <h2 class="page-heading mt-0 mb-0 mx-3 "> Notifications </h2>
+                 
+               </div>
+
+               <div class="cols-table p-4 d-inline-block w-100">
+                    <div class="comon-notic mb-4 w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-notification-3-fill"></i> Reminders </h6>
+                        </div>
+                        
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="date mt-1 text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+
+                    <div class="comon-notic mb-4 w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-notification-3-fill"></i> Reminders </h6>
+                        </div>
+                        
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="date mt-1 text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+
+                    <div class="comon-notic mb-4 w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-check-double-line"></i> Updates </h6>
+                        </div>
+                        
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="date mt-1 text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+
+                    <div class="comon-notic mb-4 w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-notification-3-fill"></i> Reminders </h6>
+                        </div>
+                        
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="date mt-1 text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+               </div>
+            </div>
+           </div>
+
+           <div class="col-lg-5">
+            <div class="inside-tops-others d-inline-block w-100">
+                <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
+                    <figure class="m-0 sert-div01">
+                        <img alt="al" loading="lazy" src="images/left-round.png">
+                    </figure>
+                   <h2 class="page-heading mt-0 mb-0 mx-3 "> Account Settings </h2>
+                 
+               </div>
+
+               <div class="cols-table p-4 d-inline-block w-100">
+                    <div class="prifle-smin mt-4 mb-4 position-relative">
+                        <figure class="col-lg-9 mx-auto text-center">
+                        <img alt="pic" class="cover-img" src="images/manages-st4.jpg">
+                        </figure>
+                        <a href="#" class="edt-btn btn"> <i class="ri-edit-2-fill"></i></a>
+                        <h5 class="text-center"> James Danish </h5>
+                        <p class="text-center"> <i class="ri-map-pin-line"></i> Fiago, Japan </p>
+                    </div>
+                    
+
+                    <div class="varifiocations">
+                        <div class="com-vaficoantion d-flex justify-content-center  align-items-start mb-4">
+                            <span class="enms-text">
+                                <i class="ri-phone-fill"></i>
+                            </span>
+                            <h5> Phone Verification 
+                             <a href="#" class="d-block"> Vatrify Now </a>
+                            </h5>
+                        </div>
+
+                        <div class="com-vaficoantion justify-content-center d-flex align-items-start">
+                         <span class="enms-text">
+                            <i class="ri-mail-fill"></i>
+                         </span>
+                         <h5> Email Verification 
+                          <a href="#" class="d-block"> Vatrify Now </a>
+                         </h5>
+                        </div>
+                     </div>
+
+               </div>
+            </div>
+           </div>
+
+
+           <div class="col-lg-7">
+            <div class="inside-tops-others d-inline-block w-100">
+                <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
+                    <figure class="m-0 sert-div01">
+                        <img alt="al" loading="lazy" src="images/left-round.png">
+                    </figure>
+                   <h2 class="page-heading mt-4 mx-4"> Earnings </h2>
+                   <figure class="m-0 sert-div01">
+                    <img alt="al" loading="lazy" src="images/left-round2.png">
+                   </figure>
+               </div>
+
+               <div class="cols-table p-4 d-inline-block w-100">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                    <h3 class="sub-texr"> Walllet Balance </h3>
+                    <h1 class="amounts-pays">$18,000</h1>
+                </div>
+                   
+
+                    <button class="btn crm-btn"> Transfer </button>
+                    
+                     
+                    
+                     
+                    <hr/>
+                    <h3 class="sub-texr"> Recent transactions </h3>
+                     <div class="transformsd w-100 mt-1">
+                        <div class="comons-tarnsd d-flex bg-white mb-3 rounded-2 p-3 pb-2 align-itmes-center justify-content-between w-100">
+                           <div class="userts-pays d-flex align-itmes-center">
+                              <figure class="m-0">
+                                   <img src="images/manages-st2.jpg"/>
+                              </figure>
+                              <div class="textrs ms-2">
+                                 <h6> Jone Danis 
+                                    <small class="d-block mt-1"> Today, 10:30PM</small>
+                                 </h6>
+                              </div>
+                           </div>
+                           <div class="amounsts-div">
+                              <h5>$250
+                                <small class="mt-1 d-block">  Transfer  </small>
+                              </h5>
+                           </div>
+                        </div>
+                        <div class="comons-tarnsd d-flex bg-white mb-3 rounded-2 p-3 pb-2 align-itmes-center justify-content-between w-100">
+                            <div class="userts-pays d-flex align-itmes-center">
+                               <figure class="m-0">
+                                    <img src="images/manages-st2.jpg"/>
+                               </figure>
+                               <div class="textrs ms-2">
+                                  <h6> Jone Danis 
+                                     <small class="d-block mt-1"> Today, 10:30PM</small>
+                                  </h6>
+                               </div>
+                            </div>
+                            <div class="amounsts-div">
+                               <h5>$250
+                                 <small class="mt-1 d-block">  Transfer  </small>
+                               </h5>
+                            </div>
+                         </div>
+                         
+                     </div>
+               </div>
+            </div>
+           </div>
+
+        </div>
+    </div>
+</section>
+
+
+<footer class="float-start w-100 mt-4">
+   <p class="text-white text-center"> © 2024 HandyMan rights reserved </p>
+</footer>
+
+
+
+
+<!-- mobile menu -->
+
+<div class="offcanvas offcanvas-end mobile-menu-div" id="mobile-menu">
+  <div class="offcanvas-header">
+    
+     <button type="button" class="close-menu" data-bs-dismiss="offcanvas">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+      </svg>
+     </button>
+  </div>
+  
+      
+    <div class="offcanvas-body">
+      
+      <div class="head-contact">
+         <a href="index.html" class="logo-side">
+         <img loading="lazy" src="images/logo.png" alt="logo">
+         </a>
+        
+         <div class="mobile-menu-sec mt-3">
+            <ul class="list-unstyled">
+               <li>
+                  <a href="index.html"> Home </a>
+               </li>
+               <li>
+                  <a href="about-us.html"> About Us </a>
+               </li>
+
+               <li>
+                <a href="services.html"> Services </a>
+               </li>
+
+               <li>
+                <a href="how-it-works.html"> How It Works </a>
+               </li>
+
+               <li>
+                <a href="pricing.html"> Pricing </a>
+               </li>
+
+               <li>
+                <a href="help.html"> Help & Support
+                </a>
+               </li>
+
+               <li>
+                <a href="contractors.html"> Contractors
+                </a>
+               </li>
+
+               <li class="d-block d-lg-none">
+                  <a href="#">  Login  </a>
+               </li>
+               <li class="d-block d-lg-none">
+                <a href="signup.html">  Signup  </a>
+               </li>
+               
+             
+            </ul>
+         </div>
+         
+         <ul class="side-media list-unstyled">
+            <li> <a href="#"> <i class="fab fa-facebook-f"></i> </a> </li>
+            <li> <a href="#"> <i class="fab fa-twitter"></i> </a> </li>
+            <li> <a href="#"> <i class="fab fa-google-plus-g"></i> </a> </li>
+            <li> <a href="#"> <i class="fab fa-instagram"></i> </a> </li>
+         </ul>
+      </div>
+    </div>
+    
+ 
+</div>
+
+<script src="js/bootstrap.bundle.min.js" ></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+<script src="js/custom.js" ></script>
+<script src="js/owl.carousel.min.js"></script>
+
+<script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js"></script>
+
+</body>
+</html>
