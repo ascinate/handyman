@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
+<<<<<<< HEAD
 use App\Events\AppointmentAccepted;
+=======
+>>>>>>> 9ecb986 (Initial commit)
 
 class AppoinmentController extends Controller
 {
@@ -58,6 +61,7 @@ class AppoinmentController extends Controller
         return redirect()->back();
     }
 
+<<<<<<< HEAD
     
     public function acceptAppointment($appointment_id)
     {
@@ -68,8 +72,24 @@ class AppoinmentController extends Controller
         // Broadcast the event
         broadcast(new AppointmentAccepted($appointment))->toOthers();
     
+=======
+    public function acceptAppointment($appointment_id)
+    {
+      
+        $appointment = Appointment::findOrFail($appointment_id);
+
+        $appointment->status = 'accepted';
+        $appointment->save();
+
+        $receiver_id = ($appointment->user_id == auth()->id()) ? $appointment->contructor_id : $appointment->user_id;
+
+>>>>>>> 9ecb986 (Initial commit)
         return redirect()->route('chat.open', ['appointment_id' => $appointment_id]);
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9ecb986 (Initial commit)
 }

@@ -13,9 +13,12 @@
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.13",
         "vite": "^5.0"
+<<<<<<< HEAD
     },
     "dependencies": {
         "laravel-echo": "^1.19.0",
         "pusher-js": "^8.4.0"
+=======
+>>>>>>> 9ecb986 (Initial commit)
     }
 }

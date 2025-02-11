@@ -130,7 +130,71 @@
                </div>
             </div>
            </div>
+<<<<<<< HEAD
 
+=======
+           <div class="col-lg-12">
+                <div class="inside-tops-others d-inline-block w-100"> 
+                    <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
+                        <figure class="m-0 sert-div01">
+                            <img alt="al" loading="lazy" src="images/left-round.png">
+                        </figure>
+                       <h2 class="page-heading mt-4 mx-4"> My Chat </h2>
+                       <figure class="m-0 sert-div01">
+                        <img alt="al" loading="lazy" src="images/left-round2.png">
+                       </figure>
+                   </div>
+
+                   <div class="cols-table p-4 d-inline-block w-100">
+                        <table id="example-datea2" class="table table-striped nowrap" style="width:100%">
+                            <thead>
+                            <tr>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>Service Name</th>
+                            <th>Special Date</th>
+                            <th>Service Date</th>
+                            <th>Service Time</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($appointments as $appointment)
+                                <tr>
+                                    <td>#{{ $appointment->appointment_id }}</td>
+                                    <td>{{ $appointment->user_name }}</td>
+                                    <td>{{ $appointment->service_name }}</td>
+                                    <td>{{ $appointment->special_date }}</td>
+                                    <td>{{ $appointment->service_date }}</td>
+                                    <td>{{ $appointment->service_time }}</td>
+                                    <td>{{ $appointment->city }}, {{ $appointment->zipcode }}</td>
+                                    <td>
+                                        @if($appointment->status == 'pending') 
+                                            <form action="{{ route('appointment.accept', $appointment->appointment_id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success">Accept</button>
+                                            </form>
+                                        @else
+                                            Accepted
+                                        @endif
+                                    </td>
+                                    
+                                    <td>
+                                        <a href="#" class="ctm"><i class="ri-download-2-fill"></i></a>
+                                        <a href="#" class="ctm"><i class="ri-delete-bin-6-fill"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                   </div>
+                </div>
+           </div>
+
+          
+>>>>>>> 9ecb986 (Initial commit)
            <div class="col-lg-5">
             <div class="inside-tops-others d-inline-block w-100">
                 <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
@@ -248,4 +312,8 @@
     </div>
 </section>
 
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 9ecb986 (Initial commit)
 <x-footer/>

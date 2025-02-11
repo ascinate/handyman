@@ -14,9 +14,16 @@ use Chatify\Facades\ChatifyMessenger;
 
 
 
+<<<<<<< HEAD
     // All routes that require sessions, cookies, etc.
    
 
+=======
+Route::middleware('web')->group(function () {
+    // All routes that require sessions, cookies, etc.
+    Route::get('/chat/{appointment_id}', [ChatController::class, 'openChat'])->name('chat.open');
+});
+>>>>>>> 9ecb986 (Initial commit)
 
 
 
@@ -96,10 +103,13 @@ Route::get('editcontractor/{id}',[ContractorController::class, 'edit']);
 Route::post('updatecontractor/{id}',[ContractorController::class, 'update'])->name('updatecontractor');
 
 Route::post('appointment/{appointment_id}/accept', [AppoinmentController::class, 'acceptAppointment'])->name('appointment.accept');
+<<<<<<< HEAD
 Route::get('/chat/{appointment_id}', [ChatController::class, 'index'])->name('chat.open');
 Route::post('/chat/{appointment_id}/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 Route::get('/chat/messages/{userId}', [ChatController::class, 'fetchMessages'])->middleware('auth');
 
+=======
+>>>>>>> 9ecb986 (Initial commit)
 
 
 

@@ -1,4 +1,5 @@
 import './bootstrap';
+<<<<<<< HEAD
 import Pusher from "pusher-js";
 
 window.Pusher = Pusher;
@@ -46,3 +47,5 @@ if (userId) {  // Only subscribe if userId exists
 if (Notification.permission !== "granted") {
     Notification.requestPermission();
 }
+=======
+>>>>>>> 9ecb986 (Initial commit)

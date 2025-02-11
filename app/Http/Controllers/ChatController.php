@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointment;
+<<<<<<< HEAD
 use App\Models\Message;
 
 use App\Models\familymember;
@@ -63,4 +64,31 @@ class ChatController extends Controller
     }
 
 
+=======
+use Chatify\Facades\ChatifyMessenger;
+
+
+class ChatController extends Controller
+{
+    public function openChat($appointment_id)
+    {
+      
+        if (!auth()->check()) {
+            return redirect()->route('login'); // Redirect to login if not authenticated
+        }
+
+        $appointment = Appointment::findOrFail($appointment_id);
+    
+        // Determine the receiver ID
+        $receiver_id = ($appointment->user_id == auth()->id()) ? $appointment->contractor_id : $appointment->user_id;
+
+     
+        $dark_mode = auth()->user()->dark_mode ?? false;
+        // Return the Chatify view directly
+        return view('Chatify::pages.app', [
+            'id' => $receiver_id,
+          
+        ]);
+    }
+>>>>>>> 9ecb986 (Initial commit)
 }

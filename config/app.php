@@ -123,6 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+<<<<<<< HEAD
     'providers' => [
     // Other service providers...
     App\Providers\BroadcastServiceProvider::class,
@@ -131,4 +132,6 @@ return [
 
 
 
+=======
+>>>>>>> 9ecb986 (Initial commit)
 ];

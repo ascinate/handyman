@@ -35,6 +35,7 @@ return [
     |
     */
 
+<<<<<<< HEAD
 'guards' => [
     'web' => [
         'driver' => 'session',
@@ -51,6 +52,14 @@ return [
 ],
 
 
+=======
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+    ],
+>>>>>>> 9ecb986 (Initial commit)
 
     /*
     |--------------------------------------------------------------------------
@@ -69,6 +78,7 @@ return [
     |
     */
 
+<<<<<<< HEAD
 'providers' => [
     'users' => [
         'driver' => 'eloquent',
@@ -83,6 +93,19 @@ return [
         'model' => App\Models\FamilyMember::class,
     ],
 ],
+=======
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
+    ],
+>>>>>>> 9ecb986 (Initial commit)
 
     /*
     |--------------------------------------------------------------------------

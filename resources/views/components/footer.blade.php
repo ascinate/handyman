@@ -18,6 +18,7 @@
           <img loading="lazy" src="{{ asset('images/logo.png') }}" alt="logo">
           </a>
               @php
+<<<<<<< HEAD
               
               $user = Auth::guard('web')->user(); 
               $familyMember = Auth::guard('family_member')->user();
@@ -26,6 +27,11 @@
               $userLoggedIn = $user !== null;
               $familyMemberLoggedIn = $familyMember !== null;
               $contractorLoggedIn = $contractor !== null;
+=======
+              $userLoggedIn = session('user_id') != ''; 
+              $familyMemberLoggedIn = session('family_member_id') != '';
+              $contractorLoggedIn = session('contractor_id') != '';
+>>>>>>> 9ecb986 (Initial commit)
               $appointments = \DB::table('appointments')->select('service_name', 'special_date')->get();
             @endphp
 
@@ -96,6 +102,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}" ></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="{{ asset('js/custom.js') }}" ></script>
@@ -103,6 +110,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
 <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+=======
+<script src="js/bootstrap.bundle.min.js" ></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script src="js/custom.js" ></script>
+<script src="js/fom-validations.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+>>>>>>> 9ecb986 (Initial commit)
 
 <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.js"></script>
@@ -111,6 +127,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://www.jqueryscript.net/demo/Full-Size-Drag-Drop-Calendar-Plugin-FullCalendar/fullcalendar.min.js"></script>
+<<<<<<< HEAD
 <script src="https://js.pusher.com/8.2/pusher.min.js"></script>
 
 <script>
@@ -156,6 +173,8 @@
 
 
 
+=======
+>>>>>>> 9ecb986 (Initial commit)
 
 
 <script>

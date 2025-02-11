@@ -103,6 +103,7 @@ class UserController extends Controller
     }
 
 
+<<<<<<< HEAD
     // public function login(Request $request)
     // {
     //     $credentials = $request->only('email', 'password');
@@ -143,6 +144,8 @@ class UserController extends Controller
     //     ]);
     // }
 
+=======
+>>>>>>> 9ecb986 (Initial commit)
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -152,6 +155,11 @@ class UserController extends Controller
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 Session::put('user_id', $user->id);
+<<<<<<< HEAD
+=======
+                Session::put('user_email', $user->email);
+                Session::put('user_name', $user->name);
+>>>>>>> 9ecb986 (Initial commit)
 
                 return redirect()->route('dashboard');
             }
@@ -159,14 +167,26 @@ class UserController extends Controller
             $familyMember = FamilyMember::where('email', $request->email)->first();
 
             if ($familyMember && Hash::check($request->password, $familyMember->password)) {
+<<<<<<< HEAD
                 Auth::guard('family_member')->login($familyMember);
+=======
+                Auth::login($familyMember->user);
+
+                Session::put('family_member_id', $familyMember->id);
+                Session::put('family_member_name', $familyMember->name);
+>>>>>>> 9ecb986 (Initial commit)
 
                 return redirect()->route('dashboard');
             }
         } elseif ($type === 'contractor') {
             $contractor = Contractor::where('email', $request->email)->first();
             if ($contractor && Hash::check($request->password, $contractor->password)) {
+<<<<<<< HEAD
                 Auth::guard('contractor')->login($contractor); // ✅ Log in using contractor guard
+=======
+                Session::put('contractor_id', $contractor->id);
+                Session::put('contractor_name', $contractor->full_name);
+>>>>>>> 9ecb986 (Initial commit)
 
                 return redirect('contractors');
             }
@@ -177,6 +197,7 @@ class UserController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
 
      public function dashboard()
     {
@@ -203,12 +224,45 @@ class UserController extends Controller
 
         return view('dashboard', [
             'user' => $authUser,
+=======
+    public function dashboard()
+    {
+        $user = Auth::user();
+
+        $familyMember = null;
+        if (session('family_member_id')) {
+            $familyMember = FamilyMember::find(session('family_member_id'));
+        }
+        if (!$user) {
+            return redirect('/');
+        }
+
+         // Determine if the user or family member is logged in
+        $familyMemberLoggedIn = $familyMember ? true : false;
+
+        $appointments = \DB::table('appointments')
+        ->join('contractors', 'appointments.contructor_id', '=', 'contractors.id')
+        ->where('appointments.user_id', $user->id)
+        ->select(
+            'appointments.id as appointment_id',
+            'appointments.service_name',
+            'contractors.full_name as contractor_name',
+        )
+        ->get();
+
+        return view('dashboard', [
+            'user' => $user,
+>>>>>>> 9ecb986 (Initial commit)
             'familyMember' => $familyMember,
             'familyMemberLoggedIn' => $familyMemberLoggedIn,
             'appointments' => $appointments
         ]);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 9ecb986 (Initial commit)
 
     public function editUser($id)
     {

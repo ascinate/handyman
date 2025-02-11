@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+<<<<<<< HEAD
         
+=======
+        //
+>>>>>>> 9ecb986 (Initial commit)
     }
 }

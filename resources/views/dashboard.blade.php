@@ -68,6 +68,7 @@
            </div>
 
            <div class="col-lg-4">
+<<<<<<< HEAD
                 <div class="inside-tops-others d-inline-block w-100">
                     <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
                         <figure class="m-0 sert-div01">
@@ -82,6 +83,56 @@
                 </div>
             </div>
 
+=======
+            <div class="inside-tops-others d-inline-block w-100">
+                <div class="tops-sectins d-flex align-items-center justify-content-center w-100">
+                    <figure class="m-0 sert-div01">
+                        <img alt="al" loading="lazy" src="images/left-round.png">
+                    </figure>
+                   <h2 class="mx-3 mt-0 mb-0 page-heading "> Notifications </h2>
+
+               </div>
+
+               <div class="p-4 cols-table d-inline-block w-100">
+                    <div class="mb-4 comon-notic w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-notification-3-fill"></i> Reminders </h6>
+                        </div>
+
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="mt-1 date text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+
+                    <div class="mb-4 comon-notic w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-notification-3-fill"></i> Reminders </h6>
+                        </div>
+
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="mt-1 date text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+
+                    <div class="mb-4 comon-notic w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-check-double-line"></i> Updates </h6>
+                        </div>
+
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="mt-1 date text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+
+                    <div class="mb-4 comon-notic w-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="text-white"> <i class="ri-notification-3-fill"></i> Reminders </h6>
+                        </div>
+
+                        <p class="mt-1 text-white"> There are many variations  </p>
+                        <p class="mt-1 date text-dark"> <i class="ri-calendar-2-line"></i> Web, 25 Apr </p>
+                    </div>
+               </div>
+            </div>
+           </div>
+>>>>>>> 9ecb986 (Initial commit)
 
            <div class="col-lg-5">
             <div class="inside-tops-others d-inline-block w-100">

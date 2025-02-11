@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+<<<<<<< HEAD
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -9,6 +10,14 @@ class Contractor extends Authenticatable // ✅ Extend Authenticatable instead o
 {
     use HasFactory;
 
+=======
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Contractor extends Model
+{
+    use HasFactory;
+>>>>>>> 9ecb986 (Initial commit)
     public $timestamps = false;
 
     protected $fillable = [
@@ -50,6 +59,7 @@ class Contractor extends Authenticatable // ✅ Extend Authenticatable instead o
         'ref_2_relation',
         'ref_2_duration'
     ];
+<<<<<<< HEAD
 
     // ✅ Add hidden attributes to hide password in responses
     protected $hidden = [
@@ -62,4 +72,7 @@ class Contractor extends Authenticatable // ✅ Extend Authenticatable instead o
     {
         $this->attributes['password'] = bcrypt($value);
     }
+=======
+    
+>>>>>>> 9ecb986 (Initial commit)
 }

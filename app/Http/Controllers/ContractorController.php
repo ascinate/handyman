@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contractor;
 use Illuminate\Support\Facades\Hash;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
+=======
+>>>>>>> 9ecb986 (Initial commit)
 use Illuminate\Support\Facades\Session;
 
 class ContractorController extends Controller
@@ -78,6 +81,7 @@ class ContractorController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
     // public function index()
     // {
 
@@ -127,12 +131,27 @@ class ContractorController extends Controller
         }
 
         $contractor = Auth::guard('contractor')->user();
+=======
+    public function index()
+    {
+
+        if (!Session::has('contractor_id')) {
+            return redirect('/login')->with('error', 'Please login to access the dashboard.');
+        }
+
+
+        $contractorId = Session::get('contractor_id');
+
+
+        $contractor = \DB::table('contractors')->where('id', $contractorId)->first();
+>>>>>>> 9ecb986 (Initial commit)
 
         if (!$contractor) {
             return redirect('/login')->with('error', 'Contractor not found.');
         }
 
         $appointments = \DB::table('appointments')
+<<<<<<< HEAD
             ->join('contractors', 'appointments.contructor_id', '=', 'contractors.id')
             ->join('users', 'appointments.user_id', '=', 'users.id')
             ->where('contractors.id', $contractor->id)
@@ -150,6 +169,25 @@ class ContractorController extends Controller
                 'contractors.full_name as contractor_name'
             )
             ->get();
+=======
+        ->join('contractors', 'appointments.contructor_id', '=', 'contractors.id')
+        ->join('users', 'appointments.user_id', '=', 'users.id')
+        ->where('contractors.id', $contractorId)
+        ->select(
+            'appointments.id as appointment_id',
+            'users.name as user_name',
+            'appointments.service_name',
+            'appointments.special_date',
+            'appointments.service_date',
+            'appointments.service_time',
+            'appointments.city',
+            'appointments.zipcode',
+            'appointments.payment_method',
+            'appointments.status',
+            'contractors.full_name as contractor_name'
+        )
+        ->get();
+>>>>>>> 9ecb986 (Initial commit)
 
         return view('dashboardcontructor', [
             'contractor' => $contractor,
@@ -158,7 +196,10 @@ class ContractorController extends Controller
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9ecb986 (Initial commit)
     public function viewContractor($id)
     {
         $contractor = Contractor::find($id);

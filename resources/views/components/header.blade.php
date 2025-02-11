@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="marhansolutions.com" />
     <title>MVP Online Property Management - Home</title>
+<<<<<<< HEAD
     @php
         $user = Auth::guard('web')->user(); 
         $familyMember = Auth::guard('family_member')->user();
@@ -20,6 +21,8 @@
     @else
         <meta name="user-id" content="">
     @endif
+=======
+>>>>>>> 9ecb986 (Initial commit)
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,6 +51,7 @@
           <i class="ri-bar-chart-horizontal-line"></i>
         </button>
         @php
+<<<<<<< HEAD
         $user = Auth::guard('web')->user(); 
         $familyMember = Auth::guard('family_member')->user();
         $contractor = Auth::guard('contractor')->user();
@@ -56,6 +60,15 @@
         $familyMemberLoggedIn = $familyMember !== null;
         $contractorLoggedIn = $contractor !== null;
       @endphp
+=======
+         $userLoggedIn = session('user_id') != '';
+         $familyMemberLoggedIn = session('family_member_id') != '';
+         $contractorLoggedIn = session('contractor_id') != '';
+         $userName = session('user_name'); 
+         $familyMemberName = session('family_member_name'); 
+         $contractorName = session('contractor_name');
+         @endphp
+>>>>>>> 9ecb986 (Initial commit)
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="mb-2 navbar-nav ms-auto mb-lg-0 align-items-center">
             <li class="nav-item">
@@ -74,11 +87,19 @@
                   </div>
                   <span class="ms-2 titleuser">
                   @if ($familyMemberLoggedIn)
+<<<<<<< HEAD
                    {{ $familyMember->name }}
                   @elseif ($contractorLoggedIn)
                    {{ $contractor->full_name }}
                   @else
                    {{ $user->name }}
+=======
+                  {{ $familyMemberName }}
+                  @elseif ($contractorLoggedIn)
+                    {{ $contractorName }}
+                  @else
+                    {{ $userName }}
+>>>>>>> 9ecb986 (Initial commit)
                   @endif
                   </span>
                 </a>

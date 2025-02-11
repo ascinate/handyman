@@ -92,6 +92,12 @@ $(document).ready(function() {
 		bPaginate: true,
 	  });
 
+<<<<<<< HEAD
+=======
+	
+	  
+
+>>>>>>> 9ecb986 (Initial commit)
 	  $('#id-em').hide();
 	  $('#id-sm').hide();
 	  $('#yse').hide();
