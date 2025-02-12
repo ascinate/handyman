@@ -5,24 +5,25 @@
             <div class="container">
                 <div class="d-flex align-items-center w-100 justify-content-between">
                     <h4 class="view-alls01"> View All Message <span>(3)</span></h4>
-                    <a href="#" class="btn alli-btn reaply-btn"> Reply </a>
+                    <a href="#replymain" class="btn alli-btn reaply-btn"> Reply </a>
                 </div>
                 
                 <div class="rely-alls w-100 mt-4">
                    @if(!$messages->isEmpty())
-                        <div class="rely-alls w-100 mt-4">
+                        <div class="rely-alls w-100 mt-4 bg-white p-3">
                             @foreach($messages as $message)
                                 <div class="comon-replys w-100">
-                                    <div class="tops-sctions-div d-flex align-items-center">
+                                    <div class="tops-sctions-div d-flex align-items-start">
                                         <figure class="m-0">
-                                            <img src="{{ asset('images/4128176.png') }}" alt="sm"/>
+                                            <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
                                         </figure>
-                                        <div class="rights01 d-flex align-items-center w-100 justify-content-between ms-2">
+                                        <div class="rights01 w-100 ms-3">
                                             <h5>{{ $message->sender_name }}</h5>
+                                             <p class="mt-1">{{ $message->content }}</p>
+
                                         </div>
                                     </div>
                                     <div class="comments-div05 ms-lg-auto">
-                                        <p class="mt-1">{{ $message->content }}</p>
                                     </div>
                                 </div>
                             @endforeach
@@ -32,12 +33,12 @@
                     @endif
 
 
-                   <div class="comoun05 reply-divu w-100 bg-light p-4 mt-3 rounded-2">
+                   <div class="comoun05 reply-divu w-100 bg-light p-4 mt-3 rounded-2" id="replymain">
                        <form action="{{ route('chat.send', $appointment->id) }}" method="POST">
                         @csrf
                         <div class="tops-sctions-div d-flex align-items-start">
                             <figure class="m-0">
-                                <img src="{{ asset('images/4128176.png') }}" alt="sm"/>
+                                <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
                             </figure>
                             <div class="comments-div05 ms01-but05 ms-lg-auto">
                                 <textarea class="texrt-div04 form-control" name="content" required></textarea>

@@ -2107,7 +2107,13 @@ button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right
             height: 50px;
             overflow: hidden;
             display: inline-block;
+            border-radius: 50px;
         }
+         .tops-sctions-div figure img{
+           object-fit: cover;
+           width: 100%;
+           height: 100%;
+         }
         .comments-div05{
             width: 100%;
             padding-left: 58px;
