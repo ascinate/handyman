@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="marhansolutions.com" />
     <title>MVP Online Property Management - Home</title>
@@ -70,6 +71,9 @@
                 <ul class="dropdown-menu menus-drps" aria-labelledby="navbarDropdown">
                 @if ($contractorLoggedIn)
                   <li><a class="dropdown-item" href="{{ URL::to('contractors') }}">My Account</a></li>
+                @elseif($familyMemberLoggedIn)
+                 <li><a class="dropdown-item" href="{{ URL::to('dashboard') }}">My Account</a></li>
+                  <li><a class="dropdown-item" href="{{ URL::to('dashboardservices') }}">My Services</a></li>
                 @else
                   <li><a class="dropdown-item" href="{{ URL::to('dashboard') }}">My Account</a></li>
                   <li><a class="dropdown-item" href="{{ URL::to('dashboardservices') }}">My Services</a></li>

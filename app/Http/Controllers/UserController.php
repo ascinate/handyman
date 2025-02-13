@@ -140,13 +140,13 @@ class UserController extends Controller
             return redirect('/')->withErrors('Unauthorized access.');
         }
 
-        // Determine logged-in user type
         $familyMemberLoggedIn = $familyMember ? true : false;
-        $authUser = $familyMember ?? $user; // Prioritize family member if logged in
-
+        $authUser = $familyMember ?? $user;
+       
         $appointments = \DB::table('appointments')
             ->join('contractors', 'appointments.contructor_id', '=', 'contractors.id')
             ->where('appointments.user_id', $authUser->id)
+            ->orwhere('appointments.member_user_id', $authUser->id)
             ->select(
                 'appointments.id as appointment_id',
                 'appointments.service_name',
@@ -161,6 +161,76 @@ class UserController extends Controller
             'appointments' => $appointments
         ]);
     }
+
+
+     public function editUser($id)
+    {
+        
+        $user = User::findOrFail($id);
+
+        return view('edituser', ['user'=>$user]);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id, // Ignore current user email
+            'phone' => 'required|string',
+            'street' => 'nullable|string',
+            'city' => 'nullable|string',
+            'state' => 'nullable|string',
+            'zipcode' => 'nullable|string',
+        ]);
+
+        
+        $user = User::findOrFail($id);
+
+       
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'street' => $request->street,
+            'city' => $request->city,
+            'state' => $request->state,
+            'zipcode' => $request->zipcode,
+        ]);
+
+
+        return redirect('dashboard');
+    }
+
+    public function editFamily($id)
+    {
+        $familyMember = FamilyMember::findOrFail($id);
+
+        return view('editfamily', ['familyMember' => $familyMember]);
+    }
+
+
+    public function updateFamily(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email|unique:family_members,email,' . $id,
+            'phone' => 'nullable|string|max:15',
+            
+        ]);
+
+        $familyMember = FamilyMember::findOrFail($id);
+
+        $familyMember->update([
+            'name' => $validated['name'],
+            'relation' => $request->relation,
+            'phone' => $validated['phone'],
+            'email' => $validated['email'],
+        ]);
+
+        return redirect('dashboard');
+    }
+    
+
 
     
 

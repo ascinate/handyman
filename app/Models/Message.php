@@ -27,13 +27,17 @@ class Message extends Model
             $join->on('messages.sender_id', '=', 'users.id')
                 ->where('messages.sender_type', '=', 'user');
         })
+        ->leftJoin('family_members', function ($join) {
+            $join->on('messages.sender_id', '=', 'family_members.id')
+                ->where('messages.sender_type', '=', 'member');
+        })
         ->leftJoin('contractors', function ($join) {
             $join->on('messages.sender_id', '=', 'contractors.id')
                 ->where('messages.sender_type', '=', 'contractor');
         })
         ->select(
             'messages.*',
-            DB::raw("COALESCE(users.name, contractors.full_name) AS sender_name")
+            DB::raw("COALESCE(users.name, contractors.full_name, family_members.name) AS sender_name")
         )
         ->where('messages.appointment_id', $appointmentId)
         ->orderBy('messages.created_at', 'ASC')

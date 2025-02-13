@@ -80,7 +80,8 @@ class ContractorController extends Controller
             'successMessage' => 'Your account was successful. Please login to access the website.',
         ]);
     }
-       public function index()
+
+    public function index()
     {
         if (!Auth::guard('contractor')->check()) {
             return redirect('/login')->with('error', 'Please login to access the dashboard.');
@@ -94,11 +95,12 @@ class ContractorController extends Controller
 
         $appointments = \DB::table('appointments')
             ->join('contractors', 'appointments.contructor_id', '=', 'contractors.id')
-            ->join('users', 'appointments.user_id', '=', 'users.id')
+            ->leftJoin('users', 'appointments.user_id', '=', 'users.id')
+            ->leftJoin('family_members', 'appointments.member_user_id', '=', 'family_members.id') 
             ->where('contractors.id', $contractor->id)
             ->select(
                 'appointments.id',
-                'users.name as user_name',
+                \DB::raw("COALESCE(users.name, family_members.name) as user_name"),
                 'appointments.service_name',
                 'appointments.special_date',
                 'appointments.service_date',
@@ -116,6 +118,7 @@ class ContractorController extends Controller
             'appointments' => $appointments
         ]);
     }
+
 
 
 

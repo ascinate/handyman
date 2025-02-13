@@ -16,23 +16,34 @@ class AppoinmentController extends Controller
 
     public function create(Request $request)
     {
-        
+
+        if (Auth::guard('web')->check()) {
+            $userId = Auth::id();
+            $memberUserId = null; 
+        } elseif (Auth::guard('family_member')->check()) {
+            $userId = null;
+            $memberUserId = Auth::guard('family_member')->id();
+        } else {
+            return back()->with('error', 'Unauthorized access.');
+        }
+
+        // Create the appointment
         Appointment::create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId, 
+            'member_user_id' => $memberUserId, 
             'service_name' => $request->service_name,
             'contructor_id' => $request->contructor_id,
             'special_date' => $request->special_date,
             'service_date' => $request->service_date,
-            'service_time' =>$request->service_time,
+            'service_time' => $request->service_time,
             'city' => $request->city,
             'state' => $request->state,
             'zipcode' => $request->zipcode,
             'payment_method' => $request->payment_method,
-            
         ]);
 
         return view('appointment', [
-            'success' => 'Appointment is created sucessfully and start exploring.',
+            'success' => 'Appointment is created successfully and start exploring.',
         ]);
     }
 
@@ -102,83 +113,54 @@ class AppoinmentController extends Controller
     }
 
 
-    // public function sendMessage(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'content' => 'required|string',
-    //     ]);
-
-    //     // Identify sender (User, Family Member, or Contractor)
-    //     if (Auth::guard('contractor')->check()) {
-    //         $sender = Auth::guard('contractor')->user();
-    //         $senderType = 'contractor';
-    //         $recipientId = Appointment::find($id)->user_id; // Send to user
-    //     } elseif (Auth::guard('family_member')->check()) {
-    //         $sender = Auth::guard('family_member')->user();
-    //         $senderType = 'family_member';
-    //         $recipientId = Appointment::find($id)->contractor_id; // Send to contractor
-    //     } elseif (Auth::check()) {
-    //         $sender = Auth::user();
-    //         $senderType = 'user';
-    //         $recipientId = Appointment::find($id)->contractor_id; // Send to contractor
-    //     } else {
-    //         return redirect()->back()->withErrors('Unauthorized action.');
-    //     }
-
-    //     Message::create([
-    //         'appointment_id' => $id,
-    //         'sender_id' => $sender->id,
-    //         'sender_type' => $senderType,
-    //         'recipient_id' => $recipientId,
-    //         'content' => $request->content,
-    //         'seen' => false,
-    //     ]);
-     
-
-    //     return redirect()->back();
-    // }
 
     public function sendMessage(Request $request, $id)
-{
-    $request->validate([
-        'content' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'content' => 'required|string',
+        ]);
 
-    // Identify sender
-    if (Auth::guard('contractor')->check()) {
-        $sender = Auth::guard('contractor')->user();
-        $senderType = 'contractor';
-        
-        // Fetch the user_id from appointments table
-        $recipientId = DB::table('appointments')->where('id', $id)->value('user_id'); 
-        
-    } elseif (Auth::check()) {
-        $sender = Auth::user();
-        $senderType = 'user';
-        
-        // Fetch the contractor_id from appointments table
-        $recipientId = DB::table('appointments')->where('id', $id)->value('contructor_id'); 
-    } else {
-        return redirect()->back()->withErrors('Unauthorized action.');
+        if (Auth::guard('contractor')->check()) {
+            $sender = Auth::guard('contractor')->user();
+            $senderType = 'contractor';
+            $appointment = DB::table('appointments')->where('id', $id)->first();
+            $recipientId = $appointment->member_user_id ?? $appointment->user_id;
+
+        } elseif (Auth::guard('web')->check()) {
+            $sender = Auth::guard('web')->user();
+            $senderType = 'user';
+            $appointment = DB::table('appointments')->where('id', $id)->first();
+            $recipientId = $appointment->contructor_id;
+
+        } elseif (Auth::guard('family_member')->check()) {
+            $sender = Auth::guard('family_member')->user();
+            $senderType = 'member';
+            $appointment = DB::table('appointments')->where('id', $id)->first();
+            $recipientId = $appointment->contructor_id;
+
+        } else {
+            return response()->json(['error' => 'Unauthorized action.'], 403);
+        }
+
+        if (!$recipientId) {
+            return response()->json(['error' => 'Recipient not found.'], 400);
+        }
+
+        // Save message
+        $message = Message::create([
+            'appointment_id' => $id,
+            'sender_id' => $sender->id,
+            'sender_type' => $senderType,
+            'recipient_id' => $recipientId,
+            'content' => $request->content,
+            'seen' => false,
+        ]);
+
+        return response()->json([
+            'message' => $message,
+            'sender_name' => $sender->name ?? $sender->full_name
+        ]);
     }
-
-    // Ensure recipient ID is not null before inserting
-    if (!$recipientId) {
-        return redirect()->back()->withErrors('Recipient not found.');
-    }
-
-    // Insert the message
-    Message::create([
-        'appointment_id' => $id,
-        'sender_id' => $sender->id,
-        'sender_type' => $senderType,
-        'recipient_id' => $recipientId, // Now correctly assigned
-        'content' => $request->content,
-        'seen' => false,
-    ]);
-
-    return redirect()->back();
-}
 
 
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('appointment_id'); // Links to appointments table
             $table->unsignedInteger('sender_id'); // User or Contractor ID
-            $table->enum('sender_type', ['user', 'contractor']); // Identify sender role
+            $table->enum('sender_type', ['user', 'contractor', 'member']); // Identify sender role
             $table->unsignedInteger('recipient_id'); // User or Contractor ID
             $table->text('content'); // Message content
             $table->boolean('seen')->default(false); // Seen status

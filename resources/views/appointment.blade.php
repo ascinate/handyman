@@ -13,6 +13,12 @@
            </div>
 
            <div class="px-4 forms-rgister fom-controls">
+            
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <section class="pt-5 multi-step-form">
 

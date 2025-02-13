@@ -40,6 +40,12 @@ Route::post('/login', [UserController::class, 'login']);
 Route::get('logout', [UserController::class, 'logout']);
 
 
+Route::get('/edituser/{id}', [UserController::class, 'editUser']);
+Route::post('/updateuser/{id}', [UserController::class, 'updateUser'])->name('updateuser');
+Route::get('/editfamily/{id}', [UserController::class, 'editFamily']);
+Route::post('/updatefamily/{id}', [UserController::class, 'updateFamily'])->name('updateFamily');
+
+
 Route::post('/servicerequest', [servicerequestController::class, 'create']);
 
 Route::view('admin/login','admin/login');

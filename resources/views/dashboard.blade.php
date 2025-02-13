@@ -39,135 +39,63 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Service</th>
-                                <th>Status</th>
+                                <th>Contructor name</th>
+                                
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>#184510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#104510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#124510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#454510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#324510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#124510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>#454510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#424510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#224510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#424510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#224510185</td>
-                                <td>System Architect</td>
-                                <td>successfully</td>
-                                <td>
-                                    <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
-                                    <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
-                                </td>
-                            </tr>
+                            @foreach ($appointments as $appointment)
+                                <tr>
+                                    <td>#{{ $appointment->appointment_id }}</td>
+                                    <td>{{ $appointment->service_name }}</td>
+                                    <td>{{ $appointment->contractor_name }}</td>
+                             
+                                    <td>
+                                        <a href="#" class="ctm"> <i class="ri-download-2-fill"></i> </a>
+                                        <a href="#" class="ctm"> <i class="ri-delete-bin-6-fill"></i> </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                                                         
+                           
                             </tbody>
                         </table>
                    </div>
                 </div>
            </div>
-           @php
+            @php
                 use Illuminate\Support\Facades\DB;
                 use Illuminate\Support\Facades\Auth;
 
-                // Fetch the latest unread message for the logged-in user
+               
+                $recipientId = null;
+
+                if (Auth::guard('web')->check()) {
+                    $recipientId = Auth::guard('web')->id();
+               
+                } elseif (Auth::guard('family_member')->check()) {
+                    $recipientId = Auth::guard('family_member')->id();
+                 
+                }
+
+                // Fetch the latest unread message for the logged-in user or family member
                 $latestUnreadMessage = DB::table('messages')
-                    ->where('recipient_id', Auth::id())
+                    ->where('recipient_id', $recipientId)
+              
                     ->where('seen', false)
                     ->orderBy('created_at', 'desc')
                     ->first();
 
-             
                 $unreadMessages = $latestUnreadMessage ? DB::table('messages')
-                    ->where('recipient_id', Auth::id())
+                    ->where('recipient_id', $recipientId)
+                  
                     ->where('seen', false)
                     ->count() : 0;
 
                 $appointmentId = $latestUnreadMessage->appointment_id ?? null;
             @endphp
+
 
             <div class="col-lg-4">
                 <div class="inside-tops-others d-inline-block w-100">
@@ -211,7 +139,7 @@
                         <img alt="pic" class="cover-img" src="images/manages-st4.jpg">
                         </figure>
                         
-                        <a href="#" class="edt-btn btn"> <i class="ri-edit-2-fill"></i></a>
+                        <a href="{{ $familyMemberLoggedIn ? URL::to('editfamily/' . $familyMember->id) : URL::to('edituser/' . $user->id) }}" class="edt-btn btn"> <i class="ri-edit-2-fill"></i></a>
                         <h5 class="text-center"> James Danish </h5>
                         <p class="text-center"> <i class="ri-map-pin-line"></i> Fiago, Japan </p>
                     </div>
