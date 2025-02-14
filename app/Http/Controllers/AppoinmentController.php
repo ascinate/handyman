@@ -42,9 +42,7 @@ class AppoinmentController extends Controller
             'payment_method' => $request->payment_method,
         ]);
 
-        return view('appointment', [
-            'success' => 'Appointment is created successfully and start exploring.',
-        ]);
+     return redirect()->back()->with('success', 'Appointment is created successfully and start exploring.');
     }
 
     public function index()
@@ -103,7 +101,7 @@ class AppoinmentController extends Controller
         $messages = Message::getMessagesWithSender($id);
 
         if ($messages->isEmpty()) {
-            $messages = new Collection(); // Ensures Blade handles it safely
+            $messages = new Collection();
         }
 
         return view('chat', [
@@ -111,6 +109,8 @@ class AppoinmentController extends Controller
             'messages' => $messages
         ]);
     }
+
+    
 
 
 
@@ -146,6 +146,13 @@ class AppoinmentController extends Controller
             return response()->json(['error' => 'Recipient not found.'], 400);
         }
 
+        // Fetch recipient details
+        $recipient = DB::table('users')->where('id', $recipientId)->first();
+
+        if (!$recipient || !$recipient->email) {
+            return response()->json(['error' => 'Recipient email not found.'], 400);
+        }
+
         // Save message
         $message = Message::create([
             'appointment_id' => $id,
@@ -156,13 +163,30 @@ class AppoinmentController extends Controller
             'seen' => false,
         ]);
 
+        if ($message) {
+            $to = $recipient->email;
+            $subject = "New Message from Handyman Service";
+            $messageBody = "
+                <html>
+                <body>
+                    <h2>New Message Received</h2>
+                    <p><strong>From:</strong> {$sender->full_name}</p>
+                    <p><strong>Message:</strong> {$message->content}</p>
+                </body>
+                </html>";
+
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From: <webmaster@ascinate.in>" . "\r\n";
+
+            mail($to, $subject, $messageBody, $headers);
+        }
+
         return response()->json([
             'message' => $message,
             'sender_name' => $sender->name ?? $sender->full_name
         ]);
     }
-
-
 
 
 

@@ -23,6 +23,7 @@
                         </div>
                     @endforeach
                 </div>
+
             </div>
 
             <div class="comoun05 reply-divu w-100 bg-light p-4 mt-3 rounded-2" id="replymain">
@@ -48,56 +49,60 @@
 <x-footer/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Send message via AJAX
-        $('#messageForm').submit(function(e) {
-            e.preventDefault();
-            let content = $('#messageContent').val();
-            let url = "{{ route('chat.send', $appointment->id) }}";
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    content: content
-                },
-                success: function(response) {
-                    if (response.message) {
-                        let newMessage = `
-                            <div class="comon-replys w-100">
-                                <div class="tops-sctions-div d-flex align-items-start">
-                                    <figure class="m-0">
-                                        <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
-                                    </figure>
-                                    <div class="rights01 w-100 ms-3">
-                                        <h5>${response.sender_name}</h5>
-                                        <p class="mt-1">${response.message.content}</p>
-                                    </div>
+$(document).ready(function() {
+    $('#messageForm').submit(function(e) {
+        e.preventDefault();
+        let content = $('#messageContent').val();
+        let url = "{{ route('chat.send', $appointment->id) }}";
+          
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                content: content
+            },
+            success: function(response) {
+                if (response.message) {
+                    let newMessage = `
+                        <div class="comon-replys w-100">
+                            <div class="tops-sctions-div d-flex align-items-start">
+                                <figure class="m-0">
+                                    <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
+                                </figure>
+                                <div class="rights01 w-100 ms-3">
+                                    <h5>${response.sender_name}</h5> <!-- FIXED -->
+                                    <p class="mt-1">${response.message.content}</p>
                                 </div>
-                            </div>`;
-                        
-                        $('#messageContainer').append(newMessage);
-                        $('#messageContent').val('');
-                        let currentCount = parseInt($('#messageCount').text().match(/\d+/)[0]);
-                        $('#messageCount').text(`(${currentCount + 1})`);
-                    }
-                },
-                error: function(xhr) {
-                    alert(xhr.responseJSON.error);
-                }
-            });
-        });
+                            </div>
+                        </div>`;
 
-        // Fetch new messages periodically
-        function fetchMessages() {
-            $.ajax({
-                url: "{{ route('chat.show', $appointment->id) }}",
-                type: "GET",
-                success: function(response) {
-                    let messagesHtml = '';
-                    response.messages.forEach(function(message) {
-                        messagesHtml += `
+                    $('#messageContainer').append(newMessage);
+                    $('#messageContent').val('');
+                    
+                    let currentCount = parseInt($('#messageCount').text().match(/\d+/)[0]);
+                    $('#messageCount').text(`(${currentCount + 1})`);
+                }
+            },
+            error: function(xhr) {
+                alert(xhr.responseJSON.error);
+            }
+        });
+    });
+
+    // Fetch new messages periodically
+    function fetchMessages() {
+        $.ajax({
+            url: "{{ route('chat.show', $appointment->id) }}",
+            type: "GET",
+            headers: { "Accept": "application/json" },
+            success: function(response) {
+                let existingMessages = $('#messageContainer').children().length;
+
+                if (response.messages.length > existingMessages) {
+                    let newMessagesHtml = '';
+                    response.messages.slice(existingMessages).forEach(function(message) {
+                        newMessagesHtml += `
                             <div class="comon-replys w-100">
                                 <div class="tops-sctions-div d-flex align-items-start">
                                     <figure class="m-0">
@@ -111,12 +116,17 @@
                             </div>`;
                     });
 
-                    $('#messageContainer').html(messagesHtml);
+                    $('#messageContainer').append(newMessagesHtml);
                     $('#messageCount').text(`(${response.messages.length})`);
                 }
-            });
-        }
+            }
+        });
+    }
 
-        setInterval(fetchMessages, 3000);
-    });
+    setInterval(fetchMessages, 3000);
+});
+
+
+
+
 </script>
