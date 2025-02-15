@@ -35,20 +35,20 @@ return [
     |
     */
 
-'guards' => [
-    'web' => [
-        'driver' => 'session',
-        'provider' => 'users',
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'contractor' => [ // Add contractor guard
+            'driver' => 'session',
+            'provider' => 'contractors',
+        ],
+        'family_member' => [ // Add family member guard
+            'driver' => 'session',
+            'provider' => 'family_members',
+        ],
     ],
-    'contractor' => [ // Add contractor guard
-        'driver' => 'session',
-        'provider' => 'contractors',
-    ],
-    'family_member' => [ // Add family member guard
-        'driver' => 'session',
-        'provider' => 'family_members',
-    ],
-],
 
 
 
@@ -69,20 +69,20 @@ return [
     |
     */
 
-'providers' => [
-    'users' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\User::class,
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+        'contractors' => [ // Add contractor provider
+            'driver' => 'eloquent',
+            'model' => App\Models\Contractor::class,
+        ],
+        'family_members' => [ // Add family member provider
+            'driver' => 'eloquent',
+            'model' => App\Models\FamilyMember::class,
+        ],
     ],
-    'contractors' => [ // Add contractor provider
-        'driver' => 'eloquent',
-        'model' => App\Models\Contractor::class,
-    ],
-    'family_members' => [ // Add family member provider
-        'driver' => 'eloquent',
-        'model' => App\Models\FamilyMember::class,
-    ],
-],
 
     /*
     |--------------------------------------------------------------------------

@@ -97,3 +97,10 @@ Route::post('/appointments/{id}/accept', [AppoinmentController::class, 'accept']
 Route::post('/appointments/{id}/decline', [AppoinmentController::class, 'decline'])->name('appointments.decline');
 Route::get('/chat/{id}', [AppoinmentController::class, 'show'])->name('chat.show');
 Route::post('/chat/{id}/send', [AppoinmentController::class, 'sendMessage'])->name('chat.send');
+
+
+
+
+
+
+

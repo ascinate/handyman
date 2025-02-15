@@ -35,7 +35,7 @@ class ContractorController extends Controller
             $preferredFreqDays = null;
         }
 
-        Contractor::create([
+        $contractor = Contractor::create([
             'full_name' => $request->full_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -76,7 +76,31 @@ class ContractorController extends Controller
               
         ]);
 
-        return view('welcomemessage', [
+        if ($contractor && $contractor->email) {
+        $to = $contractor->email;
+        $subject = "Welcome to Handyman Service!";
+        $messageBody = "
+            <html>
+            <body>
+                <h2>Welcome to Handyman Service</h2>
+                <p>Dear {$contractor->full_name},</p>
+                <p>Thank you for signing up! Below are your login credentials:</p>
+                <p><strong>Email:</strong> {$contractor->email}</p>
+                <p><strong>Password:</strong> (The password you set during registration)</p>
+                <p>You can now log in and start using our services.</p>
+                <p>Best Regards,<br>Handyman Service Team</p>
+            </body>
+            </html>";
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: <webmaster@ascinate.in>" . "\r\n";
+
+        mail($to, $subject, $messageBody, $headers);
+    }
+
+
+        return view('welcomecontractor', [
             'successMessage' => 'Your account was successful. Please login to access the website.',
         ]);
     }
@@ -143,7 +167,7 @@ class ContractorController extends Controller
         $contractor = Contractor::find($id);
         $contractor->delete();
 
-        return redirect('contractors');
+        return redirect()->back();
     }
 
     public function edit($id){

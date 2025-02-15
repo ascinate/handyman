@@ -42,7 +42,32 @@ class AppoinmentController extends Controller
             'payment_method' => $request->payment_method,
         ]);
 
-     return redirect()->back()->with('success', 'Appointment is created successfully and start exploring.');
+          $contractor = DB::table('contractors')->where('id', $request->contructor_id)->first();
+
+            if ($contractor && $contractor->email) {
+                $to = $contractor->email;
+                $subject = "New Booking Notification - Handyman Service";
+                $messageBody = "
+                    <html>
+                    <body>
+                        <h2>New Booking Received</h2>
+                        <p><strong>Service:</strong> {$request->service_name}</p>
+                        <p><strong>Booked By:</strong> " . ($userId ? "User ID: $userId" : "Family Member ID: $memberUserId") . "</p>
+                        <p><strong>Appointment Date:</strong> {$request->service_date} at {$request->service_time}</p>
+                        <p><strong>Location:</strong> {$request->city}, {$request->state}, {$request->zipcode}</p>
+                    </body>
+                    </html>";
+
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                $headers .= "From: <webmaster@ascinate.in>" . "\r\n";
+
+                mail($to, $subject, $messageBody, $headers);
+            }
+
+             return view('welcomemessage', [
+            'successMessage' => 'Your appointment has been successfully created. You will receive a confirmation soon. ',
+        ]);
     }
 
     public function index()
@@ -79,8 +104,40 @@ class AppoinmentController extends Controller
         $appointment->status = 'accepted';
         $appointment->save();
 
-        return back()->with('success', 'Appointment accepted.');
+        // Determine the recipient (user or family member)
+        if ($appointment->member_user_id) {
+            $recipient = DB::table('family_members')->where('id', $appointment->member_user_id)->first();
+        } else {
+            $recipient = DB::table('users')->where('id', $appointment->user_id)->first();
+        }
+
+        if ($recipient && $recipient->email) {
+            // Email details
+            $to = $recipient->email;
+            $subject = "Booking Confirmation - Handyman Service";
+            $messageBody = "
+                <html>
+                <body>
+                    <h2>Booking Confirmed</h2>
+                    <p>Dear {$recipient->name},</p>
+                    <p>Your appointment for <strong>{$appointment->service_name}</strong> has been accepted by the contractor.</p>
+                    <p><strong>Service Date:</strong> {$appointment->service_date}</p>
+                    <p><strong>Service Time:</strong> {$appointment->service_time}</p>
+                    <p><strong>Location:</strong> {$appointment->city}, {$appointment->state}, {$appointment->zipcode}</p>
+                    <p>Thank you for choosing our service!</p>
+                </body>
+                </html>";
+
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From: <webmaster@ascinate.in>" . "\r\n";
+
+            mail($to, $subject, $messageBody, $headers);
+        }
+
+        return back()->with('success', 'Appointment accepted. A confirmation email has been sent to the customer.');
     }
+
 
     public function decline($id)
     {
@@ -148,6 +205,10 @@ class AppoinmentController extends Controller
 
         // Fetch recipient details
         $recipient = DB::table('users')->where('id', $recipientId)->first();
+        
+        if (!$recipient) {
+            $recipient = DB::table('family_members')->where('id', $recipientId)->first();
+        }
 
         if (!$recipient || !$recipient->email) {
             return response()->json(['error' => 'Recipient email not found.'], 400);
@@ -187,6 +248,9 @@ class AppoinmentController extends Controller
             'sender_name' => $sender->name ?? $sender->full_name
         ]);
     }
+
+
+
 
 
 

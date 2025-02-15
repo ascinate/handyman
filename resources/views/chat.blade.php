@@ -10,7 +10,7 @@
             <div class="rely-alls w-100 mt-4">
                 <div class="rely-alls w-100 mt-4 bg-white p-3" id="messageContainer">
                     @foreach($messages as $message)
-                        <div class="comon-replys w-100">
+                        <div class="comon-replys w-100 cmd">
                             <div class="tops-sctions-div d-flex align-items-start">
                                 <figure class="m-0">
                                     <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
@@ -23,7 +23,7 @@
                         </div>
                     @endforeach
                 </div>
-
+                <a href="#" id="seeMore" class="btn btn-primary mt-3">Show More</a>
             </div>
 
             <div class="comoun05 reply-divu w-100 bg-light p-4 mt-3 rounded-2" id="replymain">
@@ -47,63 +47,75 @@
     </div>
 </main>
 <x-footer/>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#messageForm').submit(function(e) {
-        e.preventDefault();
-        let content = $('#messageContent').val();
-        let url = "{{ route('chat.send', $appointment->id) }}";
-          
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                content: content
-            },
-            success: function(response) {
-                if (response.message) {
-                    let newMessage = `
-                        <div class="comon-replys w-100">
-                            <div class="tops-sctions-div d-flex align-items-start">
-                                <figure class="m-0">
-                                    <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
-                                </figure>
-                                <div class="rights01 w-100 ms-3">
-                                    <h5>${response.sender_name}</h5> <!-- FIXED -->
-                                    <p class="mt-1">${response.message.content}</p>
-                                </div>
-                            </div>
-                        </div>`;
+    $(document).ready(function() {
+        // Initially show only the first 3 messages
+        $("div.cmd").slice(0, 3).show();
 
-                    $('#messageContainer').append(newMessage);
-                    $('#messageContent').val('');
-                    
-                    let currentCount = parseInt($('#messageCount').text().match(/\d+/)[0]);
-                    $('#messageCount').text(`(${currentCount + 1})`);
-                }
-            },
-            error: function(xhr) {
-                alert(xhr.responseJSON.error);
+        // Show more messages when "Show More" button is clicked
+        $("#seeMore").click(function(e) {
+            e.preventDefault();
+            $("div.cmd:hidden").slice(0, 3).fadeIn("slow");
+
+            if ($("div.cmd:hidden").length == 0) {
+                $("#seeMore").fadeOut("slow");
             }
         });
-    });
 
-    // Fetch new messages periodically
-    function fetchMessages() {
-        $.ajax({
-            url: "{{ route('chat.show', $appointment->id) }}",
-            type: "GET",
-            headers: { "Accept": "application/json" },
-            success: function(response) {
-                let existingMessages = $('#messageContainer').children().length;
+        // Send message via AJAX
+        $('#messageForm').submit(function(e) {
+            e.preventDefault();
+            let content = $('#messageContent').val();
+            let url = "{{ route('chat.send', $appointment->id) }}";
 
-                if (response.messages.length > existingMessages) {
-                    let newMessagesHtml = '';
-                    response.messages.slice(existingMessages).forEach(function(message) {
-                        newMessagesHtml += `
-                            <div class="comon-replys w-100">
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    content: content
+                },
+                success: function(response) {
+                    if (response.message) {
+                        let newMessage = `
+                            <div class="comon-replys w-100 cmd">
+                                <div class="tops-sctions-div d-flex align-items-start">
+                                    <figure class="m-0">
+                                        <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
+                                    </figure>
+                                    <div class="rights01 w-100 ms-3">
+                                        <h5>${response.sender_name}</h5>
+                                        <p class="mt-1">${response.message.content}</p>
+                                    </div>
+                                </div>
+                            </div>`;
+                        
+                        $('#messageContainer').prepend(newMessage);
+                        $("div.cmd:hidden").slice(0, 3).fadeIn("slow"); // Ensure new messages are visible
+                        $('#messageContent').val('');
+
+                        let currentCount = parseInt($('#messageCount').text().match(/\d+/)[0]);
+                        $('#messageCount').text(`(${currentCount + 1})`);
+                    }
+                },
+                error: function(xhr) {
+                    alert(xhr.responseJSON.error);
+                }
+            });
+        });
+
+        // Fetch new messages periodically
+        function fetchMessages() {
+            $.ajax({
+                url: "{{ route('chat.show', $appointment->id) }}",
+                type: "GET",
+                success: function(response) {
+                    let messagesHtml = '';
+                    response.messages.forEach(function(message) {
+                        messagesHtml += `
+                            <div class="comon-replys w-100 cmd">
                                 <div class="tops-sctions-div d-flex align-items-start">
                                     <figure class="m-0">
                                         <img src="{{ asset('images/manages-st4.jpg') }}" alt="sm"/>
@@ -116,17 +128,13 @@ $(document).ready(function() {
                             </div>`;
                     });
 
-                    $('#messageContainer').append(newMessagesHtml);
+                    $('#messageContainer').html(messagesHtml);
+                    $("div.cmd").slice(0, 3).show();
                     $('#messageCount').text(`(${response.messages.length})`);
                 }
-            }
-        });
-    }
+            });
+        }
 
-    setInterval(fetchMessages, 3000);
-});
-
-
-
-
+        setInterval(fetchMessages, 3000);
+    });
 </script>

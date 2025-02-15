@@ -20,7 +20,7 @@ class UserController extends Controller
             $preferredServiceDays = null;
         }
 
-        User::create([
+          $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -57,6 +57,29 @@ class UserController extends Controller
            
 
         ]);
+
+          if ($user && $user->email) {
+            $to = $user->email;
+            $subject = "Welcome to Handyman Service!";
+            $messageBody = "
+                <html>
+                <body>
+                    <h2>Welcome to Handyman Service</h2>
+                    <p>Dear {$user->name},</p>
+                    <p>Thank you for signing up! Below are your login credentials:</p>
+                    <p><strong>Email:</strong> {$user->email}</p>
+                    <p><strong>Password:</strong> (The password you set during registration)</p>
+                    <p>You can now log in and start using our services.</p>
+                    <p>Best Regards,<br>Handyman Service Team</p>
+                </body>
+                </html>";
+
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From: <webmaster@ascinate.in>" . "\r\n";
+
+            mail($to, $subject, $messageBody, $headers);
+        }
 
         return view('welcomemessage', [
             'successMessage' => 'Your account was successful. Please login to access the website.',
@@ -100,6 +123,7 @@ class UserController extends Controller
       public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+       
         $type = $request->input('type'); 
 
         if ($type === 'user') {
